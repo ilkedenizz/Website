@@ -117,4 +117,18 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.transform = 'none';
         }
     });
+
+    // 6. Scroll Progress Indicator
+    const scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress && !prefersReducedMotion) {
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(() => {
+                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                if (totalHeight > 0) {
+                    const progress = (window.scrollY / totalHeight) * 100;
+                    scrollProgress.style.width = Math.min(100, Math.max(0, progress)) + '%';
+                }
+            });
+        }, { passive: true });
+    }
 });
